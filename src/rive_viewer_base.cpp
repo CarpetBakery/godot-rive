@@ -98,8 +98,8 @@ int RiveViewerBase::height() const {
 
 void RiveViewerBase::_on_path_changed(String path) {
     try {
-        // inst.file = RiveFile::Load(path, rive.context.get());
-        GDPRINT("Successfully imported <", path, ">!");
+        inst.file = RiveFile::Load(path, rive.context.get());
+        // GDPRINT("Successfully imported <", path, ">!");
     } catch (RiveException error) {
         error.report();
     }
