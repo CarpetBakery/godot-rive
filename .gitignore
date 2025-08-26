@@ -6,3 +6,11 @@
 *.os
 *.o
 .sconsign.dblite
+
+src/gen
+*.obj
+*.dll
+*.exp
+*.lib
+*.pdb
+*.dblite
