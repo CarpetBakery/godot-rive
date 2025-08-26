@@ -29,7 +29,7 @@ class RiveFile : public Resource {
     friend class RiveInstance;
 
    private:
-    Ptr<rive::File> file;
+    rcp<rive::File> file;
     String path = "";
 
     Instances<RiveArtboard> artboards = Instances<RiveArtboard>([this](int index) -> Ref<RiveArtboard> {
@@ -74,7 +74,7 @@ class RiveFile : public Resource {
     }
 
    public:
-    static Ref<RiveFile> MakeRef(Ptr<rive::File> file_value, String path_value) {
+    static Ref<RiveFile> MakeRef(rcp<rive::File> file_value, String path_value) {
         if (!file_value) return nullptr;
         Ref<RiveFile> obj = memnew(RiveFile);
         obj->file = std::move(file_value);
@@ -84,9 +84,9 @@ class RiveFile : public Resource {
 
     static Ref<RiveFile> Load(String path, rive::Factory *factory) {
         try {
-            Ptr<rive::File> file = read_rive_file(path, factory);
+            rcp<rive::File> file = read_rive_file(path, factory);
             if (file != nullptr) {
-                auto file_wrapper = RiveFile::MakeRef(std::move(file), path);
+                Ref<RiveFile> file_wrapper = RiveFile::MakeRef(std::move(file), path);
                 GDPRINT("Successfully imported <", path, ">!");
                 return file_wrapper;
             } else throw RiveException("Unable to import <" + path + ">");

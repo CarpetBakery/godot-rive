@@ -7,6 +7,11 @@ compatibility_minimum = 4.1
 
 macos.debug = "bin/librive.macos.template_debug.framework"
 macos.release = "bin/librive.macos.template_release.framework"
+windows.debug.x86_32 = "res://bin/librive.windows.template_debug.x86_32.dll"
+windows.release.x86_32 = "res://bin/librive.windows.template_release.x86_32.dll"
+windows.debug.x86_64 = "res://bin/librive.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://bin/librive.windows.template_release.x86_64.dll"
+
 
 [icons]
 
