@@ -52,6 +52,7 @@ env.Prepend(
         join(RIVE_SRC_DIR, "renderer/include"),
         join(RIVE_SRC_DIR, "renderer/src"),
         join(RIVE_SRC_DIR, "renderer/glad"),
+        join(RIVE_SRC_DIR, "renderer/glad/include"),
         join(RIVE_SRC_DIR, "decoders"),
         join(RIVE_SRC_DIR, "decoders/include"),
         join(RIVE_SRC_DIR, "decoders/src"),

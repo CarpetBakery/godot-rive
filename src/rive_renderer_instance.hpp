@@ -5,7 +5,7 @@
 #include <godot_cpp/variant/builtin_types.hpp>
 
 // rive-cpp
-#include <glad.h>
+#include <glad_custom.h>
 
 #include <rive/renderer/rive_renderer.hpp>
 
