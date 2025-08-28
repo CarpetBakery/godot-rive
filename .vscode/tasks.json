@@ -19,7 +19,7 @@
             "type": "shell",
             "command": "scons",
             "problemMatcher": [],
-            "args": ["-j12", "target=template_debug", "debug_symbols=yes"],
+            "args": ["-j12", "target=template_debug", "debug_symbols=yes", "optimize=none"],
             "group": {
                 "kind": "build",
                 "isDefault": true

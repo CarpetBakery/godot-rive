@@ -13,12 +13,18 @@ if "-fno-exceptions" in env["CXXFLAGS"]:
 
 sources = []
 
-# TODO WINDOWS: Check if we're using msvc and set this appropriately
-# MSVC way of setting C++ version
-env.Append(CXXFLAGS=["/std:c++20"])
+if env.get("is_msvc", False):
+    # Use C++20
+    if "/std:c++17" in env["CXXFLAGS"]:
+        env["CXXFLAGS"].remove("/std:c++17")
+    env.Append(CXXFLAGS=["/std:c++20"])
+
+    # To silence warning about exceptions in read_rive_file.hpp
+    env.Append(CXXFLAGS=["/EHsc"])
+else:
+    env.Append(CXXFLAGS=["-frtti"])
 
 # Add rive library
-env.Append(CXXFLAGS=["-frtti"])
 RIVE_SRC_DIR = "../thirdparty/rive-cpp/"
 RIVE_LIB_DIR = os.path.abspath(join(RIVE_SRC_DIR, "renderer/out/release"))
 
