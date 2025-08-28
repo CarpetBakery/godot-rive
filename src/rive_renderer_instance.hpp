@@ -39,8 +39,11 @@ struct RiveRendererInstance {
     }
 
     PackedByteArray bytes() const {
-        // SkPixmap pixmap;
         PackedByteArray bytes;
+
+        // TODO RENDERER
+        
+        // SkPixmap pixmap;
         // if (!surface) return bytes;
         // if (!surface->peekPixels(&pixmap)) return bytes;
         // SkImageInfo info = surface->imageInfo();
@@ -53,16 +56,21 @@ struct RiveRendererInstance {
         //         bytes.encode_u32(offset, *addr);
         //     }
         // }
+
         return bytes;
     }
 
     void clear() {
-        // if (renderer) renderer->restore();
+        // TODO RENDERER
+        if (renderer) {
+            renderer->restore();
+        }
     }
 
    private:
     void on_transform_changed() {
-        // context->beginFrame(frame_descriptor());
+        // TODO RENDERER
+        context->beginFrame(frame_descriptor());
     }
 };
 

@@ -53,13 +53,22 @@ void RiveViewerBase::on_input_event(const Ref<InputEvent> &event) {
 }
 
 void RiveViewerBase::on_draw() {
-    if (!is_null(texture)) owner->draw_texture_rect(texture, Rect2(0, 0, width(), height()), false);
+    if (is_null(texture))
+        return;
+
+    owner->draw_texture_rect(texture, Rect2(0, 0, width(), height()), false);
 }
 
 void RiveViewerBase::on_process(float delta) {
     if (owner->is_node_ready() && !props.paused()) {
-        if (is_null(image)) image = Image::create(width(), height(), false, IMAGE_FORMAT);
-        if (is_null(texture)) texture = ImageTexture::create_from_image(image);
+        if (is_null(image)) {
+            image = Image::create(width(), height(), false, IMAGE_FORMAT);
+        }
+
+        if (is_null(texture)) {
+            texture = ImageTexture::create_from_image(image);
+        }
+
         PackedByteArray bytes = frame(delta);
         if (bytes.size()) {
             image->set_data(width(), height(), false, IMAGE_FORMAT, bytes);
@@ -217,19 +226,25 @@ bool RiveViewerBase::advance(float delta) {
 }
 
 PackedByteArray RiveViewerBase::redraw() {
+    // TODO RENDERER
     auto artboard = inst.artboard();
-    // if (rive.context && rive.renderer && exists(artboard)) {
-    //     rive.clear();
-    //     inst.draw(rive.renderer.get());
-    //     return rive.bytes();
-    // }
+    if (rive.context && rive.renderer && exists(artboard)) {
+        rive.clear();
+        inst.draw(rive.renderer.get());
+        return rive.bytes();
+    }
     return PackedByteArray();
 }
 
 PackedByteArray RiveViewerBase::frame(float delta) {
-    return PackedByteArray();
-    // if (!exists(inst.file) || !exists(inst.artboard()) || !rive.renderer || !rive.context) return PackedByteArray();
-    if (advance(delta) && owner->is_visible()) return redraw();
+    if (!exists(inst.file) || !exists(inst.artboard()) || !rive.renderer || !rive.context) {
+        return PackedByteArray();
+    } 
+
+    if (advance(delta) && owner->is_visible()) {
+        return redraw();
+    }
+
     return PackedByteArray();
 }
 
