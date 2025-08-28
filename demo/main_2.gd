@@ -14,13 +14,16 @@ func _init() -> void:
 
 func _ready() -> void:
 	var file: RiveFile = viewer1.get_file()
-	if file: prints("# Artboards:", file.get_artboard_count(), file.get_artboards())
+	if file: 
+		prints("# Artboards:", file.get_artboard_count(), file.get_artboards())
 	
 	var artboard: RiveArtboard = viewer1.get_artboard()
-	if artboard: prints("# Scenes: ", artboard.get_scene_count(), artboard.get_scenes())
+	if artboard: 
+		prints("# Scenes: ", artboard.get_scene_count(), artboard.get_scenes())
 	
 	var scene: RiveScene = viewer1.get_scene()
-	if scene: prints(scene.get_listeners())
+	if scene: 
+		prints(scene.get_listeners())
 	
 	viewer1.scene_property_changed.connect(_on_scene_property_changed)
 
@@ -31,3 +34,8 @@ func _on_scene_property_changed(_scene: RiveScene, property: String, new_value, 
 		old = old_value,
 		new = new_value
 	}))
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
